@@ -6,7 +6,7 @@ public class CardDrag : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDrag
 {
     private Vector3 startPosition;
     private Vector3 hoverScale = new Vector3(1.1f, 1.1f, 1.1f);
-    private Vector3 originalScale;
+    public Vector3 originalScale;
 
     public GameObject card;
     public GameObject darkness;
@@ -40,11 +40,13 @@ public class CardDrag : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDrag
 
     void Update()
     {
+        hoverScale = originalScale * 1.1f;
         transform.localScale = Vector3.Lerp(transform.localScale, hovering ? hoverScale : originalScale, Time.deltaTime * 8);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        originalScale = new Vector3(1, 1, 1);
         startPosition = transform.position;
     }
 
@@ -69,7 +71,6 @@ public class CardDrag : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDrag
         {
             CardBase cardBase = GetComponent<CardBase>();
             cardBase.Play();
-            Destroy(card);
         }
         else
         {
