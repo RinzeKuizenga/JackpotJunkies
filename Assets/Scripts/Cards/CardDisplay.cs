@@ -16,8 +16,8 @@ public class CardDisplay : MonoBehaviour
     void Start()
     {
         cardName.text = card.cardName;
-        description.text = card.description;    
-        artwork.sprite = card.artwork;  
+        description.text = card.description;
+        artwork.sprite = card.artwork;
         background.sprite = card.background;
     }
 }

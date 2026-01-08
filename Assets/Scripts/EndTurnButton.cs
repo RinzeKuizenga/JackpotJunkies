@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,10 +14,16 @@ public class EndTurnButton : MonoBehaviour
 
     private void EndTurn()
     {
-        Debug.Log("END TURN pressed!");
+        StartCoroutine(EndTurnRoutine());
+    }
+
+    private IEnumerator EndTurnRoutine()
+    {
+        yield return TimelineManager.Instance.ExecuteTimeline();
 
         GameManager.Instance.ChangeState(
             new EnemyState(GameManager.Instance)
         );
     }
+
 }

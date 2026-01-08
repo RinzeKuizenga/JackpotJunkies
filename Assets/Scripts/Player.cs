@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHealth = 50;
     [SerializeField] private int health;
     [SerializeField] private int block = 0;
+    [SerializeField] private int maxEnergy = 30;
+    [SerializeField] private int energy;
 
     public Slider hpSlider;
     public TextMeshProUGUI blockText;
@@ -28,7 +30,31 @@ public class Player : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
+        energy = 10;
+        UpdateEnergyUI();
         UpdateHPBar();
+    }
+    
+    
+    public bool HasEnoughEnergy(int cost)
+    {
+        return energy >= cost;
+    }
+
+    public void SpendEnergy(int cost)
+    {
+        energy -= cost;
+        if (energy < 0) energy = 0;
+    }
+
+    public void ResetEnergy() {
+        energy =+ Random.Range(1, 10);
+    }
+
+    
+    private void UpdateEnergyUI()
+    {
+        Debug.Log($"Energy: {energy}/{maxEnergy}");
     }
 
     public void TakeDamage(int amount)

@@ -127,5 +127,9 @@ public class DeckManager : MonoBehaviour
         return Rarity.Legendary;
     }
 
-
+    public int CardsInHand()
+    {
+        return handArea.childCount;
+    }
+    
 }

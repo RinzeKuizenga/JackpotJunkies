@@ -25,6 +25,7 @@ public class Card : ScriptableObject
 
     public CardType type;
     public Rarity rarity;
+    public int energyCost = 1;
 
     public int damageAmount;
     public int blockAmount;

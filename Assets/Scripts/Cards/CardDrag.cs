@@ -60,23 +60,25 @@ public class CardDrag : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        RectTransform slideRect = slideSpot.GetComponent<RectTransform>();
-
-        bool isInSpot = RectTransformUtility.RectangleContainsScreenPoint(slideRect, Input.mousePosition);
-
         darkness.SetActive(false);
-        if (isInSpot)
+
+        CardBase cardBase = GetComponent<CardBase>();
+
+        bool placed = TimelineManager.Instance.TryPlaceCard(
+            cardBase,
+            Input.mousePosition
+        );
+
+        if (placed)
         {
-            CardBase cardBase = GetComponent<CardBase>();
-            cardBase.Play();
-            Destroy(card);
+            Destroy(gameObject); // alleen hand kaart weg
         }
         else
         {
             transform.position = startPosition;
         }
-
     }
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {
