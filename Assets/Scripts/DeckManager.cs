@@ -100,10 +100,6 @@ public class DeckManager : MonoBehaviour
         newCard.GetComponent<CardDisplay>().card = chosen;
 
         CardDrag drag = newCard.GetComponent<CardDrag>();
-        if (drag != null)
-        {
-            drag.Init(UIManager.Instance.darkness, UIManager.Instance.slideSpot);
-        }
 
         Debug.Log("Drew card: " + chosen.cardName);
     }

@@ -1,42 +1,24 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(CanvasGroup))] 
 public class CardDrag : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private Vector3 startPosition;
-    private Vector3 hoverScale = new Vector3(1.1f, 1.1f, 1.1f);
+    private Vector3 hoverScale;
     public Vector3 originalScale;
-
-    public GameObject card;
-    public GameObject darkness;
-    public GameObject slideSpot;
-
-
-
+    public CardDisplay display;
+    private CanvasGroup canvasGroup;
     private bool hovering = false;
-
-    public void Init(GameObject darknessObj, GameObject slideSpotObj)
-    {
-        darkness = darknessObj;
-        slideSpot = slideSpotObj;
-    }
 
     void Start()
     {
-        card = gameObject;
-
-        if (darkness == null)
-            darkness = UIManager.Instance.darkness;
-
-        if (slideSpot == null)
-            slideSpot = UIManager.Instance.slideSpot;
+        display = GetComponent<CardDisplay>();
+        canvasGroup = GetComponent<CanvasGroup>();
 
         startPosition = transform.position;
         originalScale = transform.localScale;
     }
-
-
 
     void Update()
     {
@@ -46,46 +28,49 @@ public class CardDrag : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        originalScale = new Vector3(1, 1, 1);
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.alpha = 0.7f; 
+
         startPosition = transform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         hovering = false;
-        Vector3 mousePos = Input.mousePosition;
-
-        darkness.SetActive(true);
-        transform.position = new Vector3(mousePos.x, mousePos.y, mousePos.z);
-        transform.localScale = Vector3.one;
+        transform.position = eventData.position;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        RectTransform slideRect = slideSpot.GetComponent<RectTransform>();
+        canvasGroup.blocksRaycasts = true; 
+        canvasGroup.alpha = 1f;
 
-        bool isInSpot = RectTransformUtility.RectangleContainsScreenPoint(slideRect, Input.mousePosition);
+        bool isInSpot = false;
 
-        darkness.SetActive(false);
+        foreach (GameObject point in TimeLineManager.instance.DragPoints)
+        {
+            RectTransform rect = point.GetComponent<RectTransform>();
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(rect, eventData.position, null))
+            {
+                TimeLineManager.instance.AddCard(display.card, int.Parse(point.name));
+                transform.position = point.transform.position;
+                isInSpot = true;
+                break;
+            }
+        }
+
         if (isInSpot)
         {
             CardBase cardBase = GetComponent<CardBase>();
-            cardBase.Play();
+            if (cardBase != null) cardBase.Play();
         }
         else
         {
             transform.position = startPosition;
         }
-
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        hovering = true;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        hovering = false;
-    }
+    public void OnPointerEnter(PointerEventData eventData) { hovering = true; }
+    public void OnPointerExit(PointerEventData eventData) { hovering = false; }
 }
