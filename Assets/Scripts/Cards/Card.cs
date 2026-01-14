@@ -5,7 +5,8 @@ public enum CardType
 {
     Attack,
     Defend,
-    Item
+    Item,
+    Buff
 }
 public enum Rarity
 {
@@ -30,4 +31,5 @@ public class Card : ScriptableObject
     public int damageAmount;
     public int blockAmount;
     public int healAmount;
+    public int buffAmount;
 }

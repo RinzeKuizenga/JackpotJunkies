@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int block = 0;
     [SerializeField] private int maxEnergy = 30;
     [SerializeField] private int energy;
+    [SerializeField] private int buff = 0;
 
     public Slider hpSlider;
     public TextMeshProUGUI blockText;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
 
     public int Health => health;
     public int Block => block;
+    public int Buff => buff;
 
     private void Awake()
     {
@@ -77,9 +79,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    public int GetAttackDamage(int baseDamage) {
+        return baseDamage + buff;
+    }
+
     public void AddBlock(int amount)
     {
         block += amount;
+        UpdateHPBar();
+    }
+
+    public void AddBuff(int amount) {
+        buff += amount;
         UpdateHPBar();
     }
 
@@ -108,6 +119,10 @@ public class Player : MonoBehaviour
         if (block > 0)
         {
             sliderFill.color = Color.blue;
+        }
+        Debug.Log($"Buff amount: {buff}");
+        if (buff > 0) {
+            sliderFill.color = Color.yellow;
         }
         else
         {

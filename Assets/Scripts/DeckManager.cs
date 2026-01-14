@@ -16,6 +16,7 @@ public class DeckManager : MonoBehaviour
     public GameObject attackPrefab;
     public GameObject defendPrefab;
     public GameObject itemPrefab;
+    public GameObject buffPrefab;
 
 
     private void Awake()
@@ -92,6 +93,9 @@ public class DeckManager : MonoBehaviour
                 break;
             case CardType.Item:
                 prefabToUse = itemPrefab;
+                break;
+            case CardType.Buff:
+                prefabToUse = buffPrefab;
                 break;
         }
 
