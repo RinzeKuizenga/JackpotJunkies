@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Feature-TimelineSystem.unity
+    path: Assets/Scenes/Oscar/Feature-TimelineSystem.unity
     guid: fd732cfd3555e7740b087f4078244b7e
   - enabled: 1
     path: Assets/Scenes/EnemyIntentionsScene.unity
