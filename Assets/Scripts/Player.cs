@@ -13,11 +13,13 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxEnergy = 30;
     [SerializeField] private int energy;
     [SerializeField] private int buff = 0;
+    [SerializeField] private int attackDebuff = 0;
 
     public Slider hpSlider;
     public TextMeshProUGUI blockText;
     public Image sliderFill;
     public TextMeshProUGUI healthText;  
+    public TextMeshProUGUI buffText;
 
     public int Health => health;
     public int Block => block;
@@ -79,8 +81,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    public int GetAttackDamage(int baseDamage) {
-        return baseDamage + buff;
+    public int CalculateOutgoingAttackDamage(int baseDamage) {
+        int modified = baseDamage + buff - attackDebuff;
+        return Mathf.Max(0, modified);
     }
 
     public void AddBlock(int amount)
@@ -91,6 +94,12 @@ public class Player : MonoBehaviour
 
     public void AddBuff(int amount) {
         buff += amount;
+        UpdateHPBar();
+    }
+
+    public void ApplyAttackDebuff(int amount) {
+        amount = Mathf.Max(0, amount);
+        attackDebuff += Mathf.Max(0, amount);
         UpdateHPBar();
     }
 
@@ -116,13 +125,20 @@ public class Player : MonoBehaviour
         hpSlider.value = health;
         blockText.text = block.ToString();
         healthText.text = $"{health}/ 50";
+        //buffText.text = $"Buff: {buff}";
+        
+        if (buff > 0) {
+            Debug.Log(buff);
+            sliderFill.color = Color.yellow;
+        }
+
         if (block > 0)
         {
             sliderFill.color = Color.blue;
         }
-        Debug.Log($"Buff amount: {buff}");
-        if (buff > 0) {
-            sliderFill.color = Color.yellow;
+
+        if (attackDebuff > 0) {
+            sliderFill.color = Color.black;
         }
         else
         {

@@ -12,6 +12,8 @@ public class TimelineManager : MonoBehaviour
     public List<Card> enemyAttackCards;
     public List<Card> enemyDefendCards;
     public List<Card> enemyHealCards;
+    public List<Card> enemyBuffCards;
+    public List<Card> enemyDebuffCards;
     
     public TimelineSlot[] slots; // size = 6
     public GameObject timelineCardPrefab; // prefab met CardDisplay
@@ -117,7 +119,7 @@ public class TimelineManager : MonoBehaviour
         switch (card.type)
         {
             case CardType.Attack:
-                int dmg = Player.Instance.GetAttackDamage(card.damageAmount);
+                int dmg = Player.Instance.CalculateOutgoingAttackDamage(card.damageAmount);
                 Enemy.Instance.TakeDamage(dmg);
                 break;
 
@@ -142,7 +144,7 @@ public class TimelineManager : MonoBehaviour
         switch (card.type)
         {
             case CardType.Attack:
-                int finalDmg = Enemy.Instance.ReduceAttackDamage(card.damageAmount);
+                int finalDmg = Enemy.Instance.CalculateOutgoingEnemyDamage(card.damageAmount);
                 Player.Instance.TakeDamage(finalDmg);
                 break;
 
@@ -152,6 +154,13 @@ public class TimelineManager : MonoBehaviour
 
             case CardType.Item:
                 Enemy.Instance.Heal(card.healAmount);
+                break;
+
+            case CardType.Buff:
+                Enemy.Instance.AddBuff(card.buffAmount);
+                break;
+            case CardType.Debuff:
+                Player.Instance.ApplyAttackDebuff(card.debuffAmount);
                 break;
         }
     }
@@ -231,7 +240,7 @@ public class TimelineManager : MonoBehaviour
     
     private Card GetRandomEnemyCard()
     {
-        int roll = Random.Range(0, 3);
+        int roll = Random.Range(0, 5);
 
         switch (roll)
         {
@@ -243,6 +252,10 @@ public class TimelineManager : MonoBehaviour
 
             case 2:
                 return GetRandomEnemyCardWithRarity(enemyHealCards);
+            case 3:
+                return GetRandomEnemyCardWithRarity(enemyBuffCards);
+            case 4:
+                return GetRandomEnemyCardWithRarity(enemyDebuffCards);
         }
 
         return null;

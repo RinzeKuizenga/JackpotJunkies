@@ -10,14 +10,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int health;
     [SerializeField] private int block = 0;
     [SerializeField] private int attackDamage = 6;
+    [SerializeField] private int buff = 0;
 
     [SerializeField] private int attackDebuff = 0;
 
     public Slider enemySlider;
+    public Image sliderFill;
     public TextMeshProUGUI healthText;
 
     public int Health => health;
     public int Block => block;
+    public int Buff => buff;
     public int AttackDebuff => attackDebuff;
 
 
@@ -35,10 +38,12 @@ public class Enemy : MonoBehaviour
     public void ApplyAttackDebuff(int amount) {
         amount = Mathf.Max(0, amount);
         attackDebuff += amount;
+        UpdateHealthBar();
     }
 
-    public int ReduceAttackDamage(int rawDamage) {
-        return Mathf.Max(0, rawDamage - attackDebuff);
+    public int CalculateOutgoingEnemyDamage(int baseDamage) {
+        int modified = baseDamage + buff - attackDebuff;
+        return Mathf.Max(0, modified);
     }
 
     public void TakeDamage(int amount)
@@ -69,6 +74,11 @@ public class Enemy : MonoBehaviour
         UpdateHealthBar();
     }
 
+    public void AddBuff(int amount) {
+        buff += amount;
+        UpdateHealthBar();
+    }
+
     public void ResetBlock()
     {
         block = 0;
@@ -96,5 +106,11 @@ public class Enemy : MonoBehaviour
     {
         enemySlider.value = health;
         healthText.text = $"{health}/ {maxHealth}";
+
+        if (buff > 0)
+            sliderFill.color = Color.yellow;
+
+        if (attackDebuff > 0)
+            sliderFill.color = Color.black;
     }
 }
