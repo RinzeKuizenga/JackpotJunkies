@@ -17278,6 +17278,7 @@ MonoBehaviour:
   health: 0
   block: 0
   attackDamage: 6
+  attackDebuff: 0
   enemySlider: {fileID: 918512807}
   healthText: {fileID: 1964602099}
 --- !u!1 &1005677485
@@ -22709,31 +22710,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2396617151c57c84b86104c0d6eb96eb, type: 2}
   - {fileID: 11400000, guid: c05085ff4836ce841876d2e5f741c784, type: 2}
   - {fileID: 11400000, guid: 78993059dd52cf44aa7bf5764c0c19c9, type: 2}
-  commons:
-  - {fileID: 11400000, guid: 1a2a79a7badbf9d40abca49fe7f3e09b, type: 2}
-  - {fileID: 11400000, guid: 8e8174e012f70a84cab3514132d8e9ca, type: 2}
-  - {fileID: 11400000, guid: 022755cac1eb87345a08d7824a253066, type: 2}
-  - {fileID: 11400000, guid: 766aa9282c8e34c4b9ef628549e017fe, type: 2}
-  uncommons:
-  - {fileID: 11400000, guid: c38f90618ed39254eaf80d42a51ee081, type: 2}
-  - {fileID: 11400000, guid: 28313651ecf650843a723d531bc5548d, type: 2}
-  - {fileID: 11400000, guid: e8e56bdeef78d334ca07a7c8abca9544, type: 2}
-  - {fileID: 11400000, guid: 2396617151c57c84b86104c0d6eb96eb, type: 2}
-  rares:
-  - {fileID: 11400000, guid: 8b6c517c43d896e419fd537cff387cd4, type: 2}
-  - {fileID: 11400000, guid: 3ca0c67f6e0f72240930bcd9540ab11b, type: 2}
-  - {fileID: 11400000, guid: 8306a0a7f7a60e24abfca46fde5812bf, type: 2}
-  - {fileID: 11400000, guid: c05085ff4836ce841876d2e5f741c784, type: 2}
-  legendaries:
-  - {fileID: 11400000, guid: 262e8c5fb5203db4690d621820b3544f, type: 2}
-  - {fileID: 11400000, guid: de280e9163872964a8699ec53aaf3810, type: 2}
-  - {fileID: 11400000, guid: 3f82eb9aa3f94ff4180c546d76480bb4, type: 2}
-  - {fileID: 11400000, guid: 78993059dd52cf44aa7bf5764c0c19c9, type: 2}
+  - {fileID: 11400000, guid: ea310a2364d424443982af273c64497d, type: 2}
+  - {fileID: 11400000, guid: b4aea56a4b709ef44aeed2a5182f504d, type: 2}
+  - {fileID: 11400000, guid: e4678a6f9bd386d47a8e08bed7b1d183, type: 2}
+  - {fileID: 11400000, guid: e65b2d0d5321e394a8a210a5ad7c13f3, type: 2}
+  commons: []
+  uncommons: []
+  rares: []
+  legendaries: []
   handArea: {fileID: 2110488294}
   attackPrefab: {fileID: 8572927688203664328, guid: db66bb93e2fdcec4483a996c9351912a, type: 3}
   defendPrefab: {fileID: 8572927688203664328, guid: 83bf6a16b71ce0440be918ad81728c77, type: 3}
   itemPrefab: {fileID: 8572927688203664328, guid: 36763a32c98fd174986053125f665fe6, type: 3}
   buffPrefab: {fileID: 8572927688203664328, guid: 744c6af9b3dd9be4182d8778317dfdc5, type: 3}
+  debuffPrefab: {fileID: 8572927688203664328, guid: edbf01f3900d5ae4fb0f3c07cd8a0668, type: 3}
 --- !u!4 &1311042316
 Transform:
   m_ObjectHideFlags: 0

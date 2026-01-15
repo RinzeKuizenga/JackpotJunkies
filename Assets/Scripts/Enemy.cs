@@ -11,12 +11,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int block = 0;
     [SerializeField] private int attackDamage = 6;
 
+    [SerializeField] private int attackDebuff = 0;
+
     public Slider enemySlider;
     public TextMeshProUGUI healthText;
 
     public int Health => health;
     public int Block => block;
-    public int AttackDamage => attackDamage;
+    public int AttackDebuff => attackDebuff;
+
 
     private void Awake()
     {
@@ -27,6 +30,15 @@ public class Enemy : MonoBehaviour
     {
         health = maxHealth;
         UpdateHealthBar();
+    }
+
+    public void ApplyAttackDebuff(int amount) {
+        amount = Mathf.Max(0, amount);
+        attackDebuff += amount;
+    }
+
+    public int ReduceAttackDamage(int rawDamage) {
+        return Mathf.Max(0, rawDamage - attackDebuff);
     }
 
     public void TakeDamage(int amount)
@@ -65,7 +77,7 @@ public class Enemy : MonoBehaviour
 
     public void PerformAttack()
     {
-        Player.Instance.TakeDamage(attackDamage);
+ //       Player.Instance.TakeDamage(ReduceAttackDamage(attackDamage));
     }
 
     private void Die()

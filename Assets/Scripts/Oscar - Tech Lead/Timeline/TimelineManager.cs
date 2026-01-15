@@ -131,6 +131,9 @@ public class TimelineManager : MonoBehaviour
             case CardType.Buff:
                 Player.Instance.AddBuff(card.buffAmount);
                 break;
+            case CardType.Debuff:
+                Enemy.Instance.ApplyAttackDebuff(card.debuffAmount);
+                break;
         }
     }
 
@@ -139,7 +142,8 @@ public class TimelineManager : MonoBehaviour
         switch (card.type)
         {
             case CardType.Attack:
-                Player.Instance.TakeDamage(card.damageAmount);
+                int finalDmg = Enemy.Instance.ReduceAttackDamage(card.damageAmount);
+                Player.Instance.TakeDamage(finalDmg);
                 break;
 
             case CardType.Defend:
