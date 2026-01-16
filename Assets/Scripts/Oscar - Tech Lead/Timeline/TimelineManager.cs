@@ -249,12 +249,11 @@ public class TimelineManager : MonoBehaviour
             
             case 3:
                 return GetRandomEnemyCardWithRarity(enemyAttackCards);
-            
             case 4:
                 return GetRandomEnemyCardWithRarity(enemyHealCards);
-            case 3:
+            case 5:
                 return GetRandomEnemyCardWithRarity(enemyBuffCards);
-            case 4:
+            case 6:
                 return GetRandomEnemyCardWithRarity(enemyDebuffCards);
         }
 
