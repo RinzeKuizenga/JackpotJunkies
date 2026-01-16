@@ -89,6 +89,8 @@ public class TimelineManager : MonoBehaviour
             ExecuteSlot(slot);
             RemoveSlotVisual(slot); // 👈 FIX 3
         }
+        Player.Instance.TickAttackModifiers();
+        Enemy.Instance.TickAttackModifiers();
 
         ClearTimeline();
     }
@@ -131,10 +133,10 @@ public class TimelineManager : MonoBehaviour
                 Player.Instance.Heal(card.healAmount);
                 break;
             case CardType.Buff:
-                Player.Instance.AddBuff(card.buffAmount);
+                Player.Instance.AddBuff(card.buffAmount, 3);
                 break;
             case CardType.Debuff:
-                Enemy.Instance.ApplyAttackDebuff(card.debuffAmount);
+                Enemy.Instance.ApplyAttackDebuff(card.debuffAmount, 3);
                 break;
         }
     }
@@ -157,10 +159,10 @@ public class TimelineManager : MonoBehaviour
                 break;
 
             case CardType.Buff:
-                Enemy.Instance.AddBuff(card.buffAmount);
+                Enemy.Instance.AddBuff(card.buffAmount, 3);
                 break;
             case CardType.Debuff:
-                Player.Instance.ApplyAttackDebuff(card.debuffAmount);
+                Player.Instance.ApplyAttackDebuff(card.debuffAmount, 3);
                 break;
         }
     }
