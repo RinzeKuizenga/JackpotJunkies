@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Spirit Block
   artwork: {fileID: -2074269160, guid: 3290e540f8b2d314d98d9091ffe6b410, type: 3}
-  background: {fileID: -779170267, guid: 12266ae04e65c444fa5bed98336b92c8, type: 3}
+  background: {fileID: 21300000, guid: 100c9ad6b1894ec4fbdde34f108427ed, type: 3}
   description: Blocks 6 Incoming Damage
   type: 1
   rarity: 2
+  energyCost: 1
   damageAmount: 0
   blockAmount: 6
   healAmount: 0

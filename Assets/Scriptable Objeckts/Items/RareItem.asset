@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Ramen Bowl
   artwork: {fileID: 21300000, guid: 6104788ae30a7f54a992012a0f75319f, type: 3}
-  background: {fileID: -1463916559, guid: 12266ae04e65c444fa5bed98336b92c8, type: 3}
+  background: {fileID: 21300000, guid: d884d22ec992aeb49a5a4304929ac69a, type: 3}
   description: Heal 9 Damage
   type: 2
   rarity: 2
+  energyCost: 1
   damageAmount: 0
   blockAmount: 0
   healAmount: 9

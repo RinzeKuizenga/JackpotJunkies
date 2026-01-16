@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Quick Shot
   artwork: {fileID: 21300000, guid: 2f45590e187f8aa4198c323bc2478ab8, type: 3}
-  background: {fileID: -1463916559, guid: 12266ae04e65c444fa5bed98336b92c8, type: 3}
+  background: {fileID: 21300000, guid: 49152ce6fc8852644867812503500fb8, type: 3}
   description: Deal 3 damage
   type: 0
   rarity: 0
+  energyCost: 1
   damageAmount: 3
   blockAmount: 0
   healAmount: 0

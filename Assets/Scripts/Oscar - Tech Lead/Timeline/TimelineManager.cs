@@ -120,10 +120,6 @@ public class TimelineManager : MonoBehaviour
                 Enemy.Instance.TakeDamage(card.damageAmount);
                 break;
 
-            case CardType.Defend:
-                Player.Instance.AddBlock(card.blockAmount);
-                break;
-
             case CardType.Item:
                 Player.Instance.Heal(card.healAmount);
                 break;
@@ -136,10 +132,6 @@ public class TimelineManager : MonoBehaviour
         {
             case CardType.Attack:
                 Player.Instance.TakeDamage(card.damageAmount);
-                break;
-
-            case CardType.Defend:
-                Enemy.Instance.AddBlock(card.blockAmount); // moet je hebben
                 break;
 
             case CardType.Item:
@@ -223,7 +215,7 @@ public class TimelineManager : MonoBehaviour
     
     private Card GetRandomEnemyCard()
     {
-        int roll = Random.Range(0, 3);
+        int roll = Random.Range(0, 5);
 
         switch (roll)
         {
@@ -231,9 +223,15 @@ public class TimelineManager : MonoBehaviour
                 return GetRandomEnemyCardWithRarity(enemyAttackCards);
 
             case 1:
-                return GetRandomEnemyCardWithRarity(enemyDefendCards);
-
+                return GetRandomEnemyCardWithRarity(enemyAttackCards);
+            
             case 2:
+                return GetRandomEnemyCardWithRarity(enemyAttackCards);
+            
+            case 3:
+                return GetRandomEnemyCardWithRarity(enemyAttackCards);
+            
+            case 4:
                 return GetRandomEnemyCardWithRarity(enemyHealCards);
         }
 
