@@ -3,7 +3,7 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 {
     private GameObject pauseUI;
-    private Animator animator;
+    [SerializeField] private Animator animator;
     private bool isPaused;
 
     private void Awake()

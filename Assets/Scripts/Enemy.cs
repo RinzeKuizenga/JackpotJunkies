@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int buff = 0;
 
     [SerializeField] private int attackDebuff = 0;
+    
+    [SerializeField] private GameObject winScreen;
 
     public Slider enemySlider;
     public Image sliderFill;
@@ -33,8 +35,6 @@ public class Enemy : MonoBehaviour
 
     private readonly List<AttackModifier> _attackMods = new();
 
-    public GameObject Winscreen;
-
     private void Awake()
     {
         Instance = this;
@@ -42,10 +42,6 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        if (Winscreen != null)
-        {
-            Winscreen = GameObject.FindGameObjectWithTag("Winscreen");
-        }
         health = maxHealth;
         UpdateHealthBar();
     }
@@ -123,7 +119,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("Enemy died");
-        Winscreen.SetActive(true);
+        winScreen.SetActive(true);
     }
 
     public void Heal(int amount)

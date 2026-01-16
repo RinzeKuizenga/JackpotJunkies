@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] private int buff = 0;
     [SerializeField] private int attackDebuff = 0;
 
+    [SerializeField] private GameObject deathScreen;
+
     public Slider hpSlider;
     public TextMeshProUGUI blockText;
     public Image sliderFill;
@@ -141,6 +143,7 @@ public class Player : MonoBehaviour
     private void OnPlayerDeath()
     {
         Debug.Log("DEAD");
+        deathScreen.SetActive(true);
     }
 
     private void UpdateHPBar()
