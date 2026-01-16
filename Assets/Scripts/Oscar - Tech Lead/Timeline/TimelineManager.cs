@@ -12,6 +12,8 @@ public class TimelineManager : MonoBehaviour
     public List<Card> enemyAttackCards;
     public List<Card> enemyDefendCards;
     public List<Card> enemyHealCards;
+    public List<Card> enemyBuffCards;
+    public List<Card> enemyDebuffCards;
     
     public TimelineSlot[] slots; // size = 6
     public GameObject timelineCardPrefab; // prefab met CardDisplay
@@ -87,6 +89,8 @@ public class TimelineManager : MonoBehaviour
             ExecuteSlot(slot);
             RemoveSlotVisual(slot); // 👈 FIX 3
         }
+        Player.Instance.TickAttackModifiers();
+        Enemy.Instance.TickAttackModifiers();
 
         ClearTimeline();
     }
@@ -117,11 +121,18 @@ public class TimelineManager : MonoBehaviour
         switch (card.type)
         {
             case CardType.Attack:
-                Enemy.Instance.TakeDamage(card.damageAmount);
+                int dmg = Player.Instance.CalculateOutgoingAttackDamage(card.damageAmount);
+                Enemy.Instance.TakeDamage(dmg);
                 break;
 
             case CardType.Item:
                 Player.Instance.Heal(card.healAmount);
+                break;
+            case CardType.Buff:
+                Player.Instance.AddBuff(card.buffAmount, 3);
+                break;
+            case CardType.Debuff:
+                Enemy.Instance.ApplyAttackDebuff(card.debuffAmount, 3);
                 break;
         }
     }
@@ -131,11 +142,19 @@ public class TimelineManager : MonoBehaviour
         switch (card.type)
         {
             case CardType.Attack:
-                Player.Instance.TakeDamage(card.damageAmount);
+                int finalDmg = Enemy.Instance.CalculateOutgoingEnemyDamage(card.damageAmount);
+                Player.Instance.TakeDamage(finalDmg);
                 break;
 
             case CardType.Item:
                 Enemy.Instance.Heal(card.healAmount);
+                break;
+
+            case CardType.Buff:
+                Enemy.Instance.AddBuff(card.buffAmount, 3);
+                break;
+            case CardType.Debuff:
+                Player.Instance.ApplyAttackDebuff(card.debuffAmount, 3);
                 break;
         }
     }
@@ -233,6 +252,10 @@ public class TimelineManager : MonoBehaviour
             
             case 4:
                 return GetRandomEnemyCardWithRarity(enemyHealCards);
+            case 3:
+                return GetRandomEnemyCardWithRarity(enemyBuffCards);
+            case 4:
+                return GetRandomEnemyCardWithRarity(enemyDebuffCards);
         }
 
         return null;
