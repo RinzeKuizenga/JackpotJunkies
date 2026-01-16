@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     public int Block => block;
     public int AttackDamage => attackDamage;
 
+    public GameObject Winscreen;
+
     private void Awake()
     {
         Instance = this;
@@ -25,6 +27,10 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        if (Winscreen != null)
+        {
+            Winscreen = GameObject.FindGameObjectWithTag("Winscreen");
+        }
         health = maxHealth;
         UpdateHealthBar();
     }
@@ -71,8 +77,9 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("Enemy died");
+        Winscreen.SetActive(true);
     }
-    
+
     public void Heal(int amount)
     {
         health = Mathf.Min(health + amount, maxHealth);
