@@ -234,7 +234,7 @@ public class TimelineManager : MonoBehaviour
     
     private Card GetRandomEnemyCard()
     {
-        int roll = Random.Range(0, 5);
+        int roll = Random.Range(0, 7);
 
         switch (roll)
         {
